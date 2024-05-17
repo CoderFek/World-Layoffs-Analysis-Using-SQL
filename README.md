@@ -3,15 +3,15 @@
 This project is basically a walkthrough on data cleaning and analysis of the world-layoffs-dataset using SQL. It was obsereved that this year(2024) has a huge contribution on
 the world tech layoffs as well as in many different industries. That's why it's important to understand the job market and the possible reasons behind these layoffs.
 
-Dataset available at: 
+*Dataset available at*: [https://github.com/CoderFek/World-Layoffs-Dataset](https://github.com/CoderFek/World-Layoffs-Analysis-Using-SQL/blob/main/layoffs.csv)
 
 #### Metadata:-
 
-- company - Companies that contributed to world-layoffs
-- location - current location of company
-- industry - Kind of industry where the layoffs occured the most
-- total_laid_off - The number of people laid off
-- percentage_laid_off - (number of employees/total_laid_off) / 100
+- `company` - Companies that contributed to world-layoffs
+- `location` - current location of company
+- `industry` - Kind of industry where the layoffs occured the most
+- `total_laid_off` - The number of people laid off
+- `percentage_laid_off` - (total_laid_off / number of employees) / 100
 - others..
 
 ## Data Cleaning:- 
