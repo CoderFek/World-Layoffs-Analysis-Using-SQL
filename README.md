@@ -11,7 +11,7 @@ the world tech layoffs as well as in many different industries. That's why it's 
 - `location` - current location of company
 - `industry` - Kind of industry where the layoffs occured the most
 - `total_laid_off` - The number of people laid off
-- `percentage_laid_off` - (total_laid_off / number of employees) * 100
+- `percentage_laid_off` - (total_laid_off / number of employees) * 100%
 - others..
 
 ## Data Cleaning:- 
