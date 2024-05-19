@@ -14,7 +14,7 @@ the world tech layoffs as well as in many different industries. That's why it's 
 - `percentage_laid_off` - (total_laid_off / number of employees) * 100%
 - others..
 
-## Data Cleaning:- 
+## Data Cleaning
 
 ```
 SELECT *
@@ -173,4 +173,161 @@ AND t2.industry IS NOT NULL;
 SELECT *
 FROM layoffs_staging2
 WHERE company LIKE 'Bally%';
+```
+
+## Exploratory Data Analysis
+
+```
+SELECT *
+FROM layoffs_staging2;
+
+
+-- MAX layoff in 1 day
+SELECT MAX(total_laid_off), MAX(percentage_laid_off)
+FROM layoffs_staging2;
+
+
+-- Companies that laid off all the employees
+SELECT *
+FROM layoffs_staging2
+WHERE percentage_laid_off = 1
+ORDER BY funds_raised_millions DESC;
+
+
+-- Companies with the highest number of layoffs
+SELECT company, SUM(total_laid_off) AS max_layoffs
+FROM layoffs_staging2
+GROUP BY company
+ORDER BY 2 DESC;
+
+
+-- Layoffs by stages
+SELECT COUNT(company), stage, SUM(total_laid_off) AS max_layoffs
+FROM layoffs_staging2
+GROUP BY stage
+ORDER BY 3 DESC;
+
+
+-- Timeframe in which the layoffs have occured
+SELECT MIN(`date`), MAX(`date`)
+FROM layoffs_staging2;
+-- It started in March 2020 when covid hit.
+
+
+-- Which regions where inpacted the most
+SELECT country, SUM(total_laid_off) AS max_layoffs
+FROM layoffs_staging2
+GROUP BY country
+ORDER BY 2 DESC;
+-- USA was impacted the most with 256 thousand layoffs
+
+
+-- Which industry has the maximum contribution on layoffs
+SELECT industry, SUM(total_laid_off) AS max_layoffs
+FROM layoffs_staging2
+GROUP BY industry
+ORDER BY 2 DESC;
+-- Consumer and Retail, makes sense.
+
+
+-- Indian industries vs layoffs
+SELECT industry,
+SUM(CASE WHEN YEAR(`date`) = 2020 THEN total_laid_off ELSE 0 END) AS layoffs_2020,
+SUM(CASE WHEN YEAR(`date`) = 2021 THEN total_laid_off ELSE 0 END) AS layoffs_2021,
+SUM(CASE WHEN YEAR(`date`) = 2022 THEN total_laid_off ELSE 0 END) AS layoffs_2022,
+SUM(CASE WHEN YEAR(`date`) = 2023 THEN total_laid_off ELSE 0 END) AS layoffs_2023,
+SUM(total_laid_off) AS total_layoffs
+FROM layoffs_staging2
+WHERE country LIKE '%ndia'
+GROUP BY industry
+ORDER BY 6 DESC;
+
+
+-- Indian companies and layoffs
+SELECT company, industry,
+SUM(CASE WHEN YEAR(`date`) = 2020 THEN total_laid_off ELSE 0 END) AS layoffs_2020,
+SUM(CASE WHEN YEAR(`date`) = 2021 THEN total_laid_off ELSE 0 END) AS layoffs_2021,
+SUM(CASE WHEN YEAR(`date`) = 2022 THEN total_laid_off ELSE 0 END) AS layoffs_2022,
+SUM(CASE WHEN YEAR(`date`) = 2023 THEN total_laid_off ELSE 0 END) AS layoffs_2023,
+SUM(total_laid_off) AS total_layoffs
+FROM layoffs_staging2
+WHERE country LIKE '%ndia'
+GROUP BY company, industry
+ORDER BY 3 DESC;
+
+-- In India education industry was hugely affected by layoffs followed by transportation and food
+
+
+-- Time Series analysis
+
+SELECT YEAR(`date`), SUM(total_laid_off) AS max_layoffs
+FROM layoffs_staging2
+WHERE YEAR(`date`) IS NOT NULL
+GROUP BY YEAR(`date`)
+ORDER BY 1 DESC;
+
+
+-- Monthly analysis
+SELECT SUBSTRING(`date`,1,7) AS `Month`, SUM(total_laid_off)
+FROM layoffs_staging2
+WHERE SUBSTRING(`date`,1,7) IS NOT NULL
+GROUP BY `Month`
+ORDER BY `Month`;
+-- 84714 of layoffs in just first month of 2023. WOW
+
+
+-- Monthly analysis with industry
+SELECT SUBSTRING(`date`,1,7) AS `Month`, industry, SUM(total_laid_off)
+FROM layoffs_staging2
+WHERE SUBSTRING(`date`,1,7) IS NOT NULL
+GROUP BY `Month`, industry
+ORDER BY `Month`;
+
+
+-- Now let's see the maximum layoffs by month and which industry has contributed the most month wise
+WITH monthly_sums AS (
+    SELECT 
+        SUBSTRING(`date`, 1, 7) AS `Month`, 
+        industry, 
+        SUM(total_laid_off) AS highest_laid_off
+    FROM 
+        layoffs_staging2
+    WHERE 
+        SUBSTRING(`date`, 1, 7) IS NOT NULL
+    GROUP BY 
+        `Month`, industry
+),
+max_monthly_sums AS (
+    SELECT 
+        `Month`, 
+        MAX(highest_laid_off) AS max_laid_off
+    FROM 
+        monthly_sums
+    GROUP BY 
+        `Month`
+)
+SELECT 
+    ms.`Month`,
+    ms.industry,
+    ms.highest_laid_off
+FROM 
+    monthly_sums ms
+JOIN 
+    max_monthly_sums mms
+ON 
+    ms.`Month` = mms.`Month`
+    AND ms.highest_laid_off = mms.max_laid_off
+ORDER BY 
+    ms.`Month`;
+    
+-- Let's see the companies that laid off in 2023
+SELECT company, total_laid_off
+FROM layoffs_staging2
+WHERE YEAR(`date`) = 2023
+ORDER BY total_laid_off DESC;
+
+/* 
+Hmm, just as i predicted. Most of these layoffs happened in the beginning of 2023 and it is safe say
+that these layoffs are mostly accompanied by the corporate industry.
+*/
 ```
