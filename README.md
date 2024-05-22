@@ -3,6 +3,10 @@
 This project is basically a walkthrough on data cleaning and analysis of the world-layoffs-dataset using SQL. It was obsereved that the past three years had a huge contribution on
 the world tech layoffs as well as in many different industries. That's why it's important to understand the job market and the possible reasons behind these layoffs.
 
+
+![Snapshot of Dashboard from PowerBI](https://github.com/CoderFek/World-Layoffs-Analysis-Using-SQL/assets/93084608/2a847602-2be8-4d76-82a2-7267e6932dd5)
+
+
 *Dataset available at*: [https://github.com/CoderFek/World-Layoffs-Dataset](https://github.com/CoderFek/World-Layoffs-Analysis-Using-SQL/blob/main/layoffs.csv) (03/20 - 03/23)
 
 #### Metadata:-
