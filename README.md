@@ -5,7 +5,7 @@ the world tech layoffs as well as in many different industries. That's why it's 
 
 <br>
 <p align = "center">
- <img src = "https://github.com/CoderFek/World-Layoffs-Analysis-Using-SQL/assets/93084608/1866cf6a-e1d1-41c5-a42f-d0933dbe1841" width = "700" height = "400">
+ <img src = "https://github.com/CoderFek/World-Layoffs-Analysis-Using-SQL/assets/93084608/1866cf6a-e1d1-41c5-a42f-d0933dbe1841" width = "100%" height = "auto">
 </p>
 <br>
 
