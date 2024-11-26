@@ -5,7 +5,7 @@ the world tech layoffs as well as in many different industries. That's why it's 
 
 <br>
 <p align = "center">
- <img src = "https://github.com/CoderFek/World-Layoffs-Analysis-Using-SQL/assets/93084608/1866cf6a-e1d1-41c5-a42f-d0933dbe1841" width = "100%" height = "auto">
+ <img href = "https://www.linkedin.com/posts/praveen-anand-5bb0b4210_connections-activity-7199443768133996546-zaiK?utm_source=share&utm_medium=member_desktop" src = "https://github.com/CoderFek/World-Layoffs-Analysis-Using-SQL/assets/93084608/1866cf6a-e1d1-41c5-a42f-d0933dbe1841" width = "100%" height = "auto">
 </p>
 <br>
 
